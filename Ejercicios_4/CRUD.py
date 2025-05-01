@@ -7,10 +7,9 @@
 #Usar un diccionario donde el nombre sea la clave y el número sea el valor.
 #Crear un pequeño menú en consola para elegir las acciones.
 
-contacts = {"MADRE" : "3157987457",
-             "HERMANO" : "3481524879",
-             "MARIANA" : "3548756641",
-             "CASA" : "6048751542"}
+contact=[]
+contacts = {}
+contact.append(contacts)
 
 def newContact (contacts):
     name = input("Nombre del contacto: ")
