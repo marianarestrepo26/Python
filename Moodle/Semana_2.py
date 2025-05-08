@@ -71,8 +71,7 @@ def check_note(note):
             for i in note:
                 if i == search:
                     count += 1  
-            print(f'La calificación {search} aparece en la lista : {count} veces.')  
-            break
+            return(f'La calificación {search} aparece en la lista : {count} veces.')  
         except ValueError:
             print('Error, debes de ingresar un número válido.')
 

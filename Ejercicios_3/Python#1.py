@@ -8,4 +8,4 @@ while True:
         print(f"La suma de los primeros 10 números es: {total}")
         break
     except ValueError:
-        print("S10olo puedes ingresar números.")
+        print("Solamente puedes ingresar números.")
