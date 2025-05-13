@@ -60,22 +60,24 @@ def add_prod():
     price = val_price(price)
     quantity = input('Enter the products quantity: ')
     quantity = val_quantity(quantity)
-
+    
     store[product] = {'Price' : price, 'Quantity' : quantity}
-    return (f"Product '{product}' added correctly.")
+    print(f"Product '{product}' added correctly.\n")
+    
 
 #Search products in the inventory
 def search_prod(product):
     #Search the product in the dictionary
-    find = store.get(product, 'Product has no been found.')
+    find = store.get(product, 'Product has no been found.\n')
     return find
 
 #Update prices of the product 
-def updatePrice_prod(product, price):
+def updatePrice_prod(product, price, quantity):
     #Validate if the product that we find is in store.
     if product in store:
         store[product]['Price'] = price
-        print(f"Price of the product '{product}' has been updated, new price is ${price:,.2f}.")
+        store[product]['Quantity'] = quantity
+        print(f"Price of the product '{product}' has been updated, new price is ${price:,.2f} and has {quantity} units.\n")
     else:
         print(f"Product '{product}' has no been found.")
 
@@ -83,10 +85,13 @@ def updatePrice_prod(product, price):
 def remove_prod(product):
     #Validate if product is in the inventory.
     if product in store:
-        del store[product]
-        print(f"Product '{product}' has been remove to the inventory.")
+        if store[product]['Quantity'] == 0: 
+            del store[product]
+            print(f"Product '{product}' has been remove to the inventory.\n")
+        else:
+            print(f'Error, {product} still has products available.\n')
     else:
-        print(f"Error, the product '{product}' has no been found.")
+        print(f"Error, the product '{product}' has no been found.\n")
 
 #Calculate total in the inventory
 def calculate_inventory():
@@ -95,31 +100,27 @@ def calculate_inventory():
     return f"\nThe total for the everything in the inventory is: ${total:,.2f}"
 
 
-#Validate if the inventory has 5 or more products
-def val_inventory():
-    while len(store) < 5:
-        add_prod()
-
-
 #Main menu for do the functions and get data
 def menu_inventory():
-    print("\nWELCOME TO MARIANA'S STORE\n" \
-    "\nYou must enter at least 5 products to start the program.\n")
-    val_inventory()
+    print("\nWELCOME TO MARIANA'S STORE\n")
 
     while True:
-        option = input('\nWelcome to the menu'
-                       '\nEnter a number to do a function: \n'
+        option = input('\nEnter a number to do a function: \n'
                        '[1] Add a new product.\n'
                        '[2] Find available products.\n'
                        '[3] Remove products.\n'
                        '[4] Update prices.\n'
                        '[5] Calculate total inventory.\n'
-                       '[6] Exit.\n')
+                       '[6] Exit.\n'
+                       'Option: ')
 #Depending on the number chosen by the user, one of the functions will be make.
         match option:
             case '1':
-                add_prod()
+                #Validate if the inventory has 5 or more products
+                while len(store) < 4:
+                    add_prod()
+                else:
+                    add_prod()
             case '2':
                 product = input('Enter the product name that you want search: ')
                 product = val_product(product)
@@ -134,7 +135,9 @@ def menu_inventory():
                 product = val_product(product)
                 price = input('Enter the new product price: ')
                 price = val_price(price)
-                updatePrice_prod(product, price)
+                quantity = input('Enter the new product quantity: ')
+                quantity = val_quantity(quantity)
+                updatePrice_prod(product, price, quantity)
             case '5':
                 total = calculate_inventory()
                 print(total)
