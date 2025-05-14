@@ -56,6 +56,9 @@ def val_quantity(quantity):
 def add_prod():
     product = input('\nEnter the product name: ')
     product = val_product(product)
+    if product in store:
+        print('Error, the product is exist.')
+        product = input('\nEnter the product name: ')
     price = input('Enter the product price: ')
     price = val_price(price)
     quantity = input('Enter the products quantity: ')
